@@ -8,8 +8,7 @@
     <string name="generate_button">Generate 10 random problems</string>
     <string name="add_radio_button_text">Addition</string>
     <string name="sub_radio_button_text">Subtraction</string>
-    <!--    <string name=""></string>-->
-    <!--    <string name=""></string>-->
+    <string name="login_error">user name or password wrong</string>
     <!--    <string name=""></string>-->
     <!--    <string name=""></string>-->
     <!--    <string name=""></string>-->

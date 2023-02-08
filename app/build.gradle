@@ -30,6 +30,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true //This is to enable viewBinding so we don't need to use findViewById
+    }
 }
 
 dependencies {
