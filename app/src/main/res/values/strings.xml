@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FlashCard</string>
+    <string name="submit_button">Submit</string>
+    <string name="user_title">User</string>
+    <string name="pass_title">Pass</string>
+    <string name="login_title">Simple Login</string>
+<!--    <string name=""></string>-->
 </resources>
