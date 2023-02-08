@@ -4,5 +4,15 @@
     <string name="user_title">User</string>
     <string name="pass_title">Pass</string>
     <string name="login_title">Simple Login</string>
-<!--    <string name=""></string>-->
+    <string name="your_answer_title">Your Answer</string>
+    <string name="generate_button">Generate 10 random problems</string>
+    <string name="add_radio_button_text">Addition</string>
+    <string name="sub_radio_button_text">Subtraction</string>
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
+    <!--    <string name=""></string>-->
 </resources>
