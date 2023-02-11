@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModel
 import com.bignerdranch.android.flashcard.databinding.ActivityFlashCardBinding
 import com.bignerdranch.android.flashcard.databinding.ActivityLoginBinding
 import kotlin.math.log
@@ -13,7 +16,7 @@ import kotlin.math.log
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-
+    private val logintxt:LoginText by viewModels()
     private var username=""
     private var password=""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,14 +24,17 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         binding= ActivityLoginBinding.inflate(layoutInflater);
         setContentView(binding.root)
+        binding.userNameEditText.setText(logintxt.userName)
+        binding.passwordEditText.setText(logintxt.password)
         setupListeners()
+
 
     }
 
     fun validateId(): Boolean {
         username=binding.userNameEditText.text.toString()
         password=binding.passwordEditText.text.toString()
-        if(username.equals("Admin")&& password.equals("123456"))
+        if(username.equals(getString(R.string.username))&& password.equals(R.string.password))
             return true
         return false
     }
@@ -43,6 +49,12 @@ class LoginActivity : AppCompatActivity() {
             {
                 Toast.makeText(this, R.string.login_error, Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.userNameEditText.doOnTextChanged { text, start, before, count ->
+            logintxt.userName=text.toString()
+        }
+        binding.passwordEditText.doOnTextChanged { text, start, before, count ->
+            logintxt.password=text.toString()
         }
     }
 

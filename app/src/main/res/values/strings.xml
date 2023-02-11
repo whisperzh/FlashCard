@@ -14,4 +14,6 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="unknown">\?</string>
+    <string name="username">Admin</string>
+    <string name="password">123456</string>
 </resources>
