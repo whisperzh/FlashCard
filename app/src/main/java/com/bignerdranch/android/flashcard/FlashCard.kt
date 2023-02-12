@@ -17,8 +17,14 @@ class FlashCard : AppCompatActivity() {
         setContentView(R.layout.activity_flash_card)
         binding=ActivityFlashCardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         if(gameViewModel.isGameStarted()){
             displayCurrentQuestions()
+        }else{
+            val intent = intent
+            val name = intent.getStringExtra("username")
+            Toast.makeText(this, "Welcome $name!", Toast.LENGTH_SHORT).show()
+
         }
 
         binding.generateButton.setOnClickListener {
@@ -72,7 +78,7 @@ class FlashCard : AppCompatActivity() {
     }
 
     private fun createEndGameMessage(): String {
-        return "${questionViewModel.getCorrectCounts()} out of ${questionViewModel.getTotalQuestionNumber()}"
+        return "${questionViewModel.getCorrectCounts()} out of ${questionViewModel.getTotalQuestionNumber()}. Replay?"
     }
 
     private fun compareAnswerAndShowNextQuestion(strAnswer: String) {

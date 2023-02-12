@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
             if(validateId())
             {
                 var it=Intent(this,FlashCard::class.java)
+                it.putExtra("username",username);
                 startActivity(it);
                 //start intent
             }else

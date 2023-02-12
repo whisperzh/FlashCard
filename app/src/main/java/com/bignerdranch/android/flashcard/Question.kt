@@ -1,4 +1,8 @@
 package com.bignerdranch.android.flashcard
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-data class Question(val firstOperand: Int, val secondOperand: Int, val operation: String,val answer: Int)
+@Parcelize
+data class Question
+    (val firstOperand: Int, val secondOperand: Int, val operation: String,val answer: Int): Parcelable

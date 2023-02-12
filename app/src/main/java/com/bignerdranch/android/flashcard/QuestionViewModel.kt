@@ -7,6 +7,7 @@ import kotlin.random.Random
 private const val TAG = "QuizViewModel"
 private val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
 private val CURRENT_QUESTIONS_INDEX_KEY = "CURRENT_QUESTIONS_INDEX_KEY"
+private val CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY = "CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY"
 
 class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
     private val firstOperandLowerBound = 1
@@ -17,21 +18,25 @@ class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewMod
         get() = savedStateHandle.get(CURRENT_INDEX_KEY) ?:0
         set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
     private var questions: MutableList<Question>
-        get() = savedStateHandle.get(CURRENT_QUESTIONS_INDEX_KEY) ?:mutableListOf<Question>()
+        get() = savedStateHandle.get(CURRENT_QUESTIONS_INDEX_KEY) ?:mutableListOf()
         set(value) = savedStateHandle.set(CURRENT_QUESTIONS_INDEX_KEY, value)
-    private var correctAnswerCount: Int = 0
+    private var correctAnswerCount: Int
+        get() = savedStateHandle.get(CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY) ?:0
+        set(value) = savedStateHandle.set(CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY, value)
 
 
     fun generateQuestions(){
+        var questionList = mutableListOf<Question>()
         for (i in 1..10){
             val firstOperand = getRandomNumber(firstOperandLowerBound,firstOperandUpperBound)
             val secondOperand = getRandomNumber(secondOperandLowerBound,secondOperandUpperBound)
             if ((0..1).random() == 0){
-                questions.add(Question(firstOperand,secondOperand,"+", firstOperand+secondOperand))
+                questionList.add(Question(firstOperand,secondOperand,"+", firstOperand+secondOperand))
             }else{
-                questions.add(Question(firstOperand,secondOperand,"-", firstOperand-secondOperand))
+                questionList.add(Question(firstOperand,secondOperand,"-", firstOperand-secondOperand))
             }
         }
+        questions = questionList
     }
 
     fun printAllQuestions(){
