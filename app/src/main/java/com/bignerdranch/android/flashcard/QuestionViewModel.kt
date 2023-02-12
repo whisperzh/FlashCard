@@ -1,17 +1,24 @@
 package com.bignerdranch.android.flashcard
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import kotlin.random.Random
 
 private const val TAG = "QuizViewModel"
+private val CURRENT_INDEX_KEY = "CURRENT_INDEX_KEY"
+private val CURRENT_QUESTIONS_INDEX_KEY = "CURRENT_QUESTIONS_INDEX_KEY"
 
-class QuestionViewModel: ViewModel() {
+class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
     private val firstOperandLowerBound = 1
     private val firstOperandUpperBound = 99
     private val secondOperandLowerBound = 1
     private val secondOperandUpperBound = 20
-    private var currentQuestionIndex: Int = 0
-    private val questions = mutableListOf<Question>()
+    private var currentQuestionIndex: Int
+        get() = savedStateHandle.get(CURRENT_INDEX_KEY) ?:0
+        set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
+    private var questions: MutableList<Question>
+        get() = savedStateHandle.get(CURRENT_QUESTIONS_INDEX_KEY) ?:mutableListOf<Question>()
+        set(value) = savedStateHandle.set(CURRENT_QUESTIONS_INDEX_KEY, value)
     private var correctAnswerCount: Int = 0
 
 
@@ -56,7 +63,7 @@ class QuestionViewModel: ViewModel() {
     }
 
     fun getCorrectAnswer(): Int{
-        return questions[currentQuestionIndex].answer.toInt()
+        return questions[currentQuestionIndex].answer
     }
 
     fun getCurrentFirstOperand(): Int{
