@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     fun validateId(): Boolean {
         username=binding.userNameEditText.text.toString()
         password=binding.passwordEditText.text.toString()
-        if(username.equals(getString(R.string.username))&& password.equals(R.string.password))
+        if(username.equals("Admin")&& password.equals("123456"))
             return true
         return false
     }
