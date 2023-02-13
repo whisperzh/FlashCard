@@ -16,4 +16,5 @@
     <string name="unknown">\?</string>
     <string name="username">Admin</string>
     <string name="password">123456</string>
+    <string name="game_not_started">Game is not started yet</string>
 </resources>

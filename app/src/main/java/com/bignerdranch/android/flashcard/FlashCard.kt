@@ -41,21 +41,29 @@ class FlashCard : AppCompatActivity() {
         binding.answerSubmitButton.setOnClickListener{
             if (gameViewModel.gameStarted){
                 val strAnswer:String = getUserAnswer()
-                println("there")
                 if (checkAnswer(strAnswer)){
                     //if submit last question, do something
                     if (questionViewModel.isLastQuestion()){
-                        println("last question")
                         compareAnswer(strAnswer.toDouble())
                         afterOneRoundActions()
                     }else{
                         //if not the last, go to next question:
-                        println("Still has questions")
                         compareAnswerAndShowNextQuestion(strAnswer)
                     }
                 }
             }
+            else{
+                Toast.makeText(this, R.string.game_not_started,Toast.LENGTH_SHORT).show()
+            }
         }
+    }
+
+    fun getQuestionVM(): QuestionViewModel{
+        return questionViewModel
+    }
+
+    fun getGameVM(): GameViewModel{
+        return gameViewModel
     }
 
     private fun afterOneRoundActions() {
