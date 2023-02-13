@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 private val CURRENT_GAME_RUNNING_STATUS_INDEX_KEY = "CURRENT_GAME_RUNNING_STATUS_INDEX_KEY"
 private val CURRENT_USER_NAME_INDEX_KEY = "CURRENT_USER_NAME_INDEX_KEY"
 class GameViewModel(private val savedStateHandle: SavedStateHandle): ViewModel() {
-    private var gameStarted: Boolean
+    var gameStarted: Boolean
         get() = savedStateHandle.get(CURRENT_GAME_RUNNING_STATUS_INDEX_KEY) ?:false
-        set(value) = savedStateHandle.set(CURRENT_GAME_RUNNING_STATUS_INDEX_KEY, value)
+        private set(value) = savedStateHandle.set(CURRENT_GAME_RUNNING_STATUS_INDEX_KEY, value)
     private var username: String
         get() = savedStateHandle.get(CURRENT_USER_NAME_INDEX_KEY) ?:""
         set(value) = savedStateHandle.set(CURRENT_USER_NAME_INDEX_KEY, value)

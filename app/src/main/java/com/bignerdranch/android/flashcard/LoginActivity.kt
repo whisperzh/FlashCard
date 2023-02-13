@@ -27,8 +27,6 @@ class LoginActivity : AppCompatActivity() {
         binding.userNameEditText.setText(logintxt.userName)
         binding.passwordEditText.setText(logintxt.password)
         setupListeners()
-
-
     }
 
     fun validateId(): Boolean {
@@ -38,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
             return true
         return false
     }
+
     fun setupListeners(){
         binding.submitButton.setOnClickListener {
             if(validateId())

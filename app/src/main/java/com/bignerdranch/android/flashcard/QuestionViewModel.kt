@@ -14,15 +14,15 @@ class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewMod
     private val firstOperandUpperBound = 99
     private val secondOperandLowerBound = 1
     private val secondOperandUpperBound = 20
-    private var currentQuestionIndex: Int
+    var currentQuestionIndex: Int
         get() = savedStateHandle.get(CURRENT_INDEX_KEY) ?:0
-        set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
-    private var questions: MutableList<Question>
+        private set(value) = savedStateHandle.set(CURRENT_INDEX_KEY, value)
+    var questions: MutableList<Question>
         get() = savedStateHandle.get(CURRENT_QUESTIONS_INDEX_KEY) ?:mutableListOf()
-        set(value) = savedStateHandle.set(CURRENT_QUESTIONS_INDEX_KEY, value)
-    private var correctAnswerCount: Int
+        private set(value) = savedStateHandle.set(CURRENT_QUESTIONS_INDEX_KEY, value)
+    var correctAnswerCount: Int
         get() = savedStateHandle.get(CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY) ?:0
-        set(value) = savedStateHandle.set(CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY, value)
+        private set(value) = savedStateHandle.set(CURRENT_CORRECT_QUESTIONS_NUMBER_INDEX_KEY, value)
 
 
     fun generateQuestions(){
@@ -55,6 +55,7 @@ class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewMod
         return questions.size
     }
 
+
     fun isLastQuestion(): Boolean{
         return currentQuestionIndex == questions.size-1
     }
@@ -63,27 +64,17 @@ class QuestionViewModel(private val savedStateHandle: SavedStateHandle): ViewMod
         this.correctAnswerCount += 1
     }
 
-    fun clearCorrectAnswer(){
-        this.correctAnswerCount = 1
-    }
-
     fun getCorrectAnswer(): Int{
         return questions[currentQuestionIndex].answer
     }
 
-    fun getCurrentFirstOperand(): Int{
-        print(questions[currentQuestionIndex].firstOperand)
-        return questions.get(currentQuestionIndex).firstOperand
+    fun getCurrentQuestion(): Question{
+        if (currentQuestionIndex < questions.size && currentQuestionIndex>=0){
+            return questions.get(currentQuestionIndex)
+        }else{
+            throw java.lang.IndexOutOfBoundsException()
+        }
     }
-
-    fun getCurrentSecondOperand(): Int{
-        return questions.get(currentQuestionIndex).secondOperand
-    }
-
-    fun getCurrentOperator(): String{
-        return questions.get(currentQuestionIndex).operation
-    }
-
 
     fun moveToNextQuestion() {
         currentQuestionIndex += 1

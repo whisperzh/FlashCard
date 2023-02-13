@@ -1,12 +1,14 @@
 package com.bignerdranch.android.flashcard
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bignerdranch.android.flashcard.databinding.ActivityFlashCardBinding
 
+private const val TAG = "FlashCard: AppCompatActivity"
 
 class FlashCard : AppCompatActivity() {
     private lateinit var binding:ActivityFlashCardBinding
@@ -30,7 +32,6 @@ class FlashCard : AppCompatActivity() {
         binding.generateButton.setOnClickListener {
             if (!gameViewModel.isGameStarted()){
                 questionViewModel.generateQuestions()
-                questionViewModel.printAllQuestions()
                 gameViewModel.setGameStartedToTrue()
                 displayCurrentQuestions()
             }
@@ -38,18 +39,20 @@ class FlashCard : AppCompatActivity() {
 
 
         binding.answerSubmitButton.setOnClickListener{
-            val strAnswer:String = getUserAnswer()
-            println("there")
-            if (checkAnswer(strAnswer)){
-                //if submit last question, do something
-                if (questionViewModel.isLastQuestion()){
-                    println("last question")
-                    compareAnswer(strAnswer.toDouble())
-                    afterOneRoundActions()
-                }else{
-                    //if not the last, go to next question:
-                    println("Still has questions")
-                    compareAnswerAndShowNextQuestion(strAnswer)
+            if (gameViewModel.gameStarted){
+                val strAnswer:String = getUserAnswer()
+                println("there")
+                if (checkAnswer(strAnswer)){
+                    //if submit last question, do something
+                    if (questionViewModel.isLastQuestion()){
+                        println("last question")
+                        compareAnswer(strAnswer.toDouble())
+                        afterOneRoundActions()
+                    }else{
+                        //if not the last, go to next question:
+                        println("Still has questions")
+                        compareAnswerAndShowNextQuestion(strAnswer)
+                    }
                 }
             }
         }
@@ -95,9 +98,14 @@ class FlashCard : AppCompatActivity() {
     }
 
     private fun displayCurrentQuestions(){
-        binding.num1Text.setText(questionViewModel.getCurrentFirstOperand().toString())
-        binding.num2Text.setText(questionViewModel.getCurrentSecondOperand().toString())
-        binding.operatorText.setText(questionViewModel.getCurrentOperator())
+        try{
+            val currentQuestion: Question = questionViewModel.getCurrentQuestion()
+            binding.num1Text.setText(currentQuestion.firstOperand.toString())
+            binding.num2Text.setText(currentQuestion.secondOperand.toString())
+            binding.operatorText.setText(currentQuestion.operation)
+        }catch (e: java.lang.IndexOutOfBoundsException){
+            Log.e(TAG, e.toString())
+        }
     }
 
     private fun getUserAnswer(): String{
