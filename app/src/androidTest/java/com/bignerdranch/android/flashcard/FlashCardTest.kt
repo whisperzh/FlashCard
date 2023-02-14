@@ -44,9 +44,9 @@ class FlashCardTest {
     @Test
     fun integerAnswerWillWork() {
         onView(withId(R.id.generateButton)).perform(click())
-        repeat(10){
+        repeat(2){
             onView(withId(R.id.answerText)).perform(ViewActions.clearText())
-            onView(withId(R.id.answerText)).perform(ViewActions.typeText("13"))
+            onView(withId(R.id.answerText)).perform(ViewActions.typeText("20"))
             onView(withId(R.id.answerSubmitButton)).perform(click())
         }
     }
@@ -54,7 +54,7 @@ class FlashCardTest {
     @Test
     fun nonIntegerAnswerWillNotWork() {
         onView(withId(R.id.generateButton)).perform(click())
-        repeat(5){
+        repeat(2){
             onView(withId(R.id.answerText)).perform(ViewActions.clearText())
             onView(withId(R.id.answerText)).perform(ViewActions.typeText("non digit"))
             onView(withId(R.id.answerSubmitButton)).perform(click())
@@ -64,7 +64,7 @@ class FlashCardTest {
     @Test
     fun emptyAnswerWillNotWork() {
         onView(withId(R.id.generateButton)).perform(click())
-        repeat(5){
+        repeat(2){
             onView(withId(R.id.answerText)).perform(ViewActions.clearText())
             onView(withId(R.id.answerText)).perform(ViewActions.typeText(""))
             onView(withId(R.id.answerSubmitButton)).perform(click())

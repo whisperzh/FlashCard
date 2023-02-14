@@ -68,9 +68,11 @@ class FlashCard : AppCompatActivity() {
 
     private fun afterOneRoundActions() {
         val options: List<String> = listOf("YES", "NO")
-        val endGameMessage: String = createEndGameMessage()
+        val scores: String = createEndGameMessage()
+        Toast.makeText(this, scores, Toast.LENGTH_SHORT).show()
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle(endGameMessage)
+        Thread.sleep(2000)
+        builder.setTitle("Replay?")
         builder.setPositiveButton(R.string.yes) { _, _ ->
             replay()
         }
@@ -89,7 +91,7 @@ class FlashCard : AppCompatActivity() {
     }
 
     private fun createEndGameMessage(): String {
-        return "${questionViewModel.getCorrectCounts()} out of ${questionViewModel.getTotalQuestionNumber()}. Replay?"
+        return "${questionViewModel.getCorrectCounts()} out of ${questionViewModel.getTotalQuestionNumber()}"
     }
 
     private fun compareAnswerAndShowNextQuestion(strAnswer: String) {
